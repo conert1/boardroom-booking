@@ -1,0 +1,150 @@
+{
+    "accessRole": "reader",
+    "defaultReminders": [],
+    "etag": "\"p32g9v24tlicfq0g\"",
+    "items": [
+        {
+            "created": "2023-01-17T08:36:43.000Z",
+            "creator": {
+                "email": "jhb3cc@gmail.com",
+                "self": true
+            },
+            "end": {
+                "dateTime": "2023-01-18T12:30:00+02:00",
+                "timeZone": "Africa/Johannesburg"
+            },
+            "etag": "\"3347889207136000\"",
+            "eventType": "default",
+            "htmlLink": "https://www.google.com/calendar/event?eid=MjFocjlmcG9oMGEwMWVyMGIzcWxwMjZraG4gamhiM2NjQG0",
+            "iCalUID": "21hr9fpoh0a01er0b3qlp26khn@google.com",
+            "id": "21hr9fpoh0a01er0b3qlp26khn",
+            "kind": "calendar#event",
+            "organizer": {
+                "email": "jhb3cc@gmail.com",
+                "self": true
+            },
+            "sequence": 0,
+            "start": {
+                "dateTime": "2023-01-18T11:30:00+02:00",
+                "timeZone": "Africa/Johannesburg"
+            },
+            "status": "confirmed",
+            "summary": "Random Event",
+            "updated": "2023-01-17T08:36:43.568Z"
+        },
+        {
+            "attendees": [
+                {
+                    "email": "jhb3cc@gmail.com",
+                    "organizer": true,
+                    "responseStatus": "needsAction",
+                    "self": true
+                }
+            ],
+            "created": "2023-02-07T09:35:04.000Z",
+            "creator": {
+                "email": "jhb3cc@gmail.com",
+                "self": true
+            },
+            "description": "Available to volunteer",
+            "end": {
+                "dateTime": "2023-07-02T08:30:00+02:00",
+                "timeZone": "Africa/Johannesburg"
+            },
+            "etag": "\"3351525008716000\"",
+            "eventType": "default",
+            "htmlLink": "https://www.google.com/calendar/event?eid=NzdyZzRwc2w5Nm8waDl0b3FvY21sdjZlcmcgamhiM2NjQG0",
+            "iCalUID": "77rg4psl96o0h9toqocmlv6erg@google.com",
+            "id": "77rg4psl96o0h9toqocmlv6erg",
+            "kind": "calendar#event",
+            "organizer": {
+                "email": "jhb3cc@gmail.com",
+                "self": true
+            },
+            "sequence": 0,
+            "start": {
+                "dateTime": "2023-07-02T08:00:00+02:00",
+                "timeZone": "Africa/Johannesburg"
+            },
+            "status": "confirmed",
+            "summary": "Free Slot",
+            "updated": "2023-02-07T09:35:04.358Z",
+            "visibility": "public"
+        },
+        {
+            "attendees": [
+                {
+                    "email": "jhb3cc@gmail.com",
+                    "organizer": true,
+                    "responseStatus": "needsAction",
+                    "self": true
+                }
+            ],
+            "created": "2023-02-07T09:35:23.000Z",
+            "creator": {
+                "email": "jhb3cc@gmail.com",
+                "self": true
+            },
+            "description": "Available to volunteer",
+            "end": {
+                "dateTime": "2023-07-02T08:30:00+02:00",
+                "timeZone": "Africa/Johannesburg"
+            },
+            "etag": "\"3351525046698000\"",
+            "eventType": "default",
+            "htmlLink": "https://www.google.com/calendar/event?eid=MGM2MjFoaGk1ZzRwbm9lZW92M3NtZjB2bTAgamhiM2NjQG0",
+            "iCalUID": "0c621hhi5g4pnoeeov3smf0vm0@google.com",
+            "id": "0c621hhi5g4pnoeeov3smf0vm0",
+            "kind": "calendar#event",
+            "organizer": {
+                "email": "jhb3cc@gmail.com",
+                "self": true
+            },
+            "sequence": 0,
+            "start": {
+                "dateTime": "2023-07-02T08:00:00+02:00",
+                "timeZone": "Africa/Johannesburg"
+            },
+            "status": "confirmed",
+            "summary": "Free Slot",
+            "updated": "2023-02-07T09:35:23.349Z",
+            "visibility": "public"
+        },
+        {
+            "created": "2023-02-15T08:59:10.000Z",
+            "creator": {
+                "email": "jhb3cc@gmail.com",
+                "self": true
+            },
+            "description": "Just to see on terminal",
+            "end": {
+                "dateTime": "2023-02-16T10:30:00+02:00",
+                "timeZone": "Africa/Johannesburg"
+            },
+            "etag": "\"3352904544370000\"",
+            "eventType": "default",
+            "htmlLink": "https://www.google.com/calendar/event?eid=NmxyOWJrcGtycDdxNDdlZ2UzdW9mN2hrb2sgamhiM2NjQG0",
+            "iCalUID": "6lr9bkpkrp7q47ege3uof7hkok@google.com",
+            "id": "6lr9bkpkrp7q47ege3uof7hkok",
+            "kind": "calendar#event",
+            "organizer": {
+                "email": "jhb3cc@gmail.com",
+                "self": true
+            },
+            "sequence": 1,
+            "start": {
+                "dateTime": "2023-02-16T10:00:00+02:00",
+                "timeZone": "Africa/Johannesburg"
+            },
+            "status": "confirmed",
+            "summary": "Dummy event",
+            "transparency": "transparent",
+            "updated": "2023-02-15T09:11:12.185Z"
+        }
+    ],
+    "kind": "calendar#events",
+    "nextSyncToken": "CKCfiJ2smP0CEAAYASCuqunyAQ==",
+    "summary": "jhb3cc@gmail.com",
+    "timeZone": "Africa/Johannesburg",
+    "updated": "2023-02-15T20:17:06.564Z"
+}

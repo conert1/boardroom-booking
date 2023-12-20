@@ -1,0 +1,4 @@
+# dev-requirements.in
+-r requirements.txt
+django-debug-toolbar
+pytest

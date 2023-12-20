@@ -1,0 +1,194 @@
+#!usr/bin/env python3
+from api.get_data import *
+from api import quickstart 
+from calendar_format.calendar_view import *
+from calendar_format.date_formatter import *
+from calendar_format.prettytable_formatter import *
+from database.user_database import *
+import bookings as book
+import os
+import sys
+import argparse
+
+
+def register(email):
+    '''
+    Returns email address as well as username from user.
+    '''
+    register_user(email.split('@')[0], email)
+
+    if not os.path.isfile('.token.json'):
+        quickstart.main()
+
+    return True, email.split('@')[0], email
+
+
+def login(email):
+    '''
+    Checks if user is in database.
+    If not asks user to register.
+    '''
+    
+    logged = login_user(email.split('@')[0])
+    
+    if not logged:
+        print('You are not registed.')
+        return '', '', ''
+
+    else:
+        if not os.path.isfile('.token.json'):
+            quickstart.main()
+        return True, email.split('@')[0], email
+
+
+def view_my_calendar():
+    '''
+    Displays student calendar on terminal.
+    '''
+    credentials = get_crendentials('.token.json')
+    week_schedule_from_google_calander(credentials)
+    data = open_calendar_txt()
+    try:
+        dates, times, summaries, descriptions = sort_calendar_elements(data)
+        print(display_calendar(dates, times, summaries, descriptions))
+    except TypeError:
+        print(colors['YELLOW'], 'There are no events to display for the next 7 days.', colors['END'])       
+
+
+def view_cc_calendar():
+    '''
+    Displays code clinic calendar on terminal.
+    '''
+    credentials = get_crendentials(".cctoken.json")
+    week_schedule_from_google_calander(credentials)
+    data = open_calendar_txt()
+    try:
+        dates, times, summaries, descriptions = sort_calendar_elements(data)
+        print(display_calendar(dates, times, summaries, descriptions))
+    except TypeError:
+        print(colors['YELLOW'], 'There are no events to display for the next 7 days.', colors['END'])    
+
+
+def main():
+    '''
+    Runs Code Clinic beginning with registration or login.
+    '''
+    credentials = get_crendentials('.cctoken.json')
+    get_cal_data(credentials)
+    parser = argparse.ArgumentParser(
+        prog = 'Code Clinic Booking System.',
+        description = 'Allows students at WethinkCode_ to help each other by creating bookings on the Code Clinic calendar.',
+        )
+
+    parser.add_argument('-r', '--register', help = 'Register as a first time user.')
+    parser.add_argument('-li', '--login', help = 'Access calendars and make/update bookings.')
+    parser.add_argument('-vmc', '--view_my_cal', help = 'View own calendar.')
+    parser.add_argument('-vcc', '--view_cc_cal', help = 'View cc calendar.')
+    parser.add_argument('-vol', '--volunteer', help = 'Creates a volunteer slot.')
+    parser.add_argument('-b', '--book', help = 'Books an available slot.')
+    parser.add_argument('-cb', '--cancel_booking', help = 'Cancel a student booking.')
+    parser.add_argument('-cs', '--cancel_slot', help = 'Cancel volunteer slot')
+    parser.add_argument('-lo', '--logout', help = 'Logout of the booking system.')
+    args = parser.parse_args()
+
+
+    if len(sys.argv) == 3 and '@student.wethinkcode.co.za' in sys.argv[2]:
+        username = sys.argv[2].split('@')[0]
+        email = sys.argv[2]
+        if args.login:
+            logged, username, email = login(email)
+            
+        if args.register:
+            logged, username, email = register(email) 
+            quickstart.main()
+
+        if args.view_my_cal:
+            if not os.path.isfile('.token.json'):
+                print('You are not registered on the Code Clinic Booking System.')
+            else:
+                logged = login_user(email.split('@')[0])
+                if logged:
+                    view_my_calendar()
+                else:
+                    print('You are not registered/logged into the Code Clinic Booking System.')
+
+        if args.view_cc_cal:
+            if not os.path.isfile('.token.json'):
+                print('You are not registered on the Code Clinic Booking System.')
+            else:
+                logged = login_user(email.split('@')[0])
+                if logged:
+                    view_cc_calendar()
+                else:
+                    print('You are not registered/logged into the Code Clinic Booking System.')
+
+        if args.volunteer:
+            if not os.path.isfile('.token.json'):
+                print('You are not registered on the Code Clinic Booking System.')
+            else:
+                logged = login_user(email.split('@')[0])
+                if logged:
+                    avail_times = get_vol_times()
+                    eventId, eventSummary, start_time = book.create_slot(
+                            username, email, avail_times)
+                    if start_time:    
+                        create_slot_update(username, start_time, eventId)
+                else:
+                    print('You are not registered/logged into the Code Clinic Booking System.')
+
+        if args.book:
+            if not os.path.isfile('.token.json'):
+                print('You are not registered on the Code Clinic Booking System.')
+            else:
+                logged = login_user(email.split('@')[0])
+                if logged:
+                    avail_times = get_avail_times()
+                    eventId, eventSummary, eventDescription, start_time = book.make_booking(
+                            username, email, avail_times)
+                    if start_time:
+                        book_slot_update(username, start_time, eventId, eventSummary, eventDescription)
+                else:
+                    print('You are not registered/logged into the Code Clinic Booking System.')
+
+        if args.cancel_booking:
+            if not os.path.isfile('.token.json'):
+                print('You are not registered on the Code Clinic Booking System.')
+            else:
+                logged = login_user(email.split('@')[0])
+                if logged:
+                    eventId = cancel_booking_id(username)
+                    if eventId:
+                        eventId, eventSummary = book.cancel_booking(username, eventId)
+                        if eventSummary:
+                            cancel_booking_update(username)
+                            cancel_booking_update_vol(eventId, eventSummary)
+                else:
+                    print('You are not registered/logged into the Code Clinic Booking System.')
+
+        if args.cancel_slot:
+            if not os.path.isfile('.token.json'):
+                print('You are not registered on the Code Clinic Booking System.')
+            else:
+                logged = login_user(email.split('@')[0])
+                if logged:
+                    eventId = cancel_slot_id(username)
+                    if book.cancel_slot(username, eventId):
+                        cancel_slot_update(username)
+                else:
+                    print('You are not registered/logged into the Code Clinic Booking System.')
+
+        if args.logout:
+            try:
+                os.remove('.token.json')
+                os.remove('.ccdatabase.db')
+                print('You have successfully logged out of the Code Clinic Booking System.')
+            except:
+                pass
+                
+    else:
+        print('''You have entered an invalid email address.
+Re-enter your WeThinkCode_ email.''')
+
+
+if __name__ == "__main__":
+    main()
